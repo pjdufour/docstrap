@@ -1,11 +1,34 @@
 <?js
-    var data = obj;
-    data.forEach(function(example) {
-        if (example.caption) {
-    ?>
-        <p class="code-caption"><?js= example.caption ?></p>
-    <?js } ?>
-    <pre class="sunlight-highlight-<?js= example.lang ?>"><?js~ example.code ?></pre>
-<?js
-    });
+var data = obj;
+var self = this;
+var defaultCaption = "Basic";
 ?>
+<div style="padding:8px; border-radius: 8px; background: #EEE;">
+  <div class="h4 pull-left" style="margin-right: 4px;">Example<?js= data.examples.length > 1? 's':'' ?>:</div>
+  <ul class="nav nav-pills">
+  <?js
+      data.examples.forEach(function(example, i) { ?>
+        <?js if (i == 0) { ?>
+        <li class="active"><a data-toggle="pill" href="#<?js= data.id.replace(".", "__") ?>-example-<?js= i ?>"><?js= example.caption || defaultCaption ?></a></li>
+        <?js } else { ?>
+        <li><a data-toggle="pill" href="#<?js= data.id.replace(".", "__") ?>-example-<?js= i ?>"><?js= example.caption || defaultCaption ?></a></li>
+        <?js } ?>
+      <?js });
+  ?>
+  </ul>
+  <div class="tab-content">
+    <?js
+        data.examples.forEach(function(example, i) { ?>
+          <?js if (i == 0) { ?>
+          <div id="<?js= data.id.replace(".", "__") ?>-example-<?js= i ?>" class="tab-pane fade in active">
+            <pre class="sunlight-highlight-<?js= example.lang ?>"><?js~ example.code ?></pre>
+          </div>
+          <?js } else { ?>
+          <div id="<?js= data.id.replace(".", "__") ?>-example-<?js= i ?>" class="tab-pane fade">
+            <pre class="sunlight-highlight-<?js= example.lang ?>"><?js~ example.code ?></pre>
+          </div>
+          <?js } ?>
+        <?js });
+    ?>
+  </div>
+</div>

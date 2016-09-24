@@ -4,7 +4,16 @@ var self = this;
 ?>
 <hr>
 <dt>
-    <h4 class="name" id="<?js= id ?>"><?js= data.attribs + (kind === 'class' ? 'new ' : '') + name + (kind !== 'event' ? data.signature : '') ?><a href="<?js= self.linkto(meta.shortpath) ?>"><i class="fa fa-code"></i></a></h4>
+    <nav class="navbar">
+      <div class="container-fluid">
+        <h4 id="<?js= id ?>" class="navbar-text name"><?js= data.attribs + (kind === 'class' ? 'new ' : '') + name + (kind !== 'event' ? data.signature : '') ?></h4>
+        <div class="collapse navbar-collapse">
+          <ul class="nav navbar-nav">
+            <li><?js= self.linkto(meta.shortpath, '<i class="fa fa-code"></i>', null, null) ?></li>
+          </ul>
+        </div>
+      </div>
+    </nav>
 
     <?js if (data.summary) { ?>
     <p class="summary"><?js= summary ?></p>
@@ -91,7 +100,6 @@ var self = this;
     } } ?>
 
     <?js if (data.examples && examples.length) { ?>
-        <h5>Example<?js= examples.length > 1? 's':'' ?></h5>
-        <?js= this.partial('examples.tmpl', examples) ?>
+        <?js= this.partial('examples.tmpl', data) ?>
     <?js } ?>
 </dd>
